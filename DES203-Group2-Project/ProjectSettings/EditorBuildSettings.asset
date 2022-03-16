@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TavernBehindBar.unity
     guid: 2940ffe2c3579e24f879dd7c32dd4d3d
+  - enabled: 1
+    path: Assets/Scenes/MiniGame_1.unity
+    guid: c29d7bc059ec0e8478fb596cb00b1d09
   m_configObjects: {}
