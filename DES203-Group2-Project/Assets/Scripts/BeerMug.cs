@@ -7,13 +7,14 @@ public class BeerMug : MonoBehaviour
 {
     public GameObject BeerMugIMG;
     public GameObject BeerMugLocation;
-    public GameObject[] BeerPostion;
-    public GameObject TrayLocation;
+    public GameObject[] TapPosition;
+    public GameObject[] TrayLocation;
     public GameObject PourBeer1, PourBeer2, PourBeer3;
     public GameObject BeerPrefab;
     int current = 0;
-    // remove Public
-   public float PourTime;
+    int drinksFinished = 0;
+    float startTime;
+    float PourTime;
     float GameTime;
     float BeerLevel;
     bool KeyPressed = false;
@@ -24,7 +25,7 @@ public class BeerMug : MonoBehaviour
     public void Start()
     {
         // set beer mugs location to location one
-        BeerMugLocation.transform.position = BeerPostion[current].transform.position;
+        BeerMugLocation.transform.position = TapPosition[current].transform.position;
 
         GameTime -= Time.time;
 
@@ -36,84 +37,104 @@ public class BeerMug : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        //begin mini game/get new tankard
         {
+            current = 0;
+            BeerMugLocation.transform.position = TapPosition[current].transform.position;
             BeerMugIMG.SetActive(true);
+            BeerMugIMG.GetComponent<Animator>().enabled = true;
+            BeerMugIMG.GetComponent<Animator>().Play("Beer_Idle");
             Debug.Log("letThereBeBeer");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            current--;
-            BeerMugLocation.transform.position = BeerPostion[current].transform.position;
-            Debug.Log("Leftmovement");
+            //move beer to tap location -1 from current position
+            if (current > 0)
+            {
+                current--;
+                BeerMugLocation.transform.position = TapPosition[current].transform.position;
+                Debug.Log("Leftmovement");
+            }
             PourTime = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            current++;
-            BeerMugLocation.transform.position = BeerPostion[current].transform.position;
-            Debug.Log("Rightmovement");
+            //move beer to tap location +1 from current position
+            if (current < TapPosition.Length)
+            {
+                current++;
+                BeerMugLocation.transform.position = TapPosition[current].transform.position;
+                Debug.Log("Rightmovement");
+            }
             PourTime = 0f;
         }
-        
-        if (Input.GetKey(KeyCode.A))
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            PourBeer1.SetActive(true);
-            KeyPressed = true;
-            Timer();
-        }
-        else
-        {
-            PourBeer1.SetActive(false);
+            //move beer to tap location on top layer if its currently on bottom layer
+            if (current == 0 || current == 1)
+            {
+                current = 3;
+                BeerMugLocation.transform.position = TapPosition[current].transform.position;
+            }
+            else if (current == 2)
+            {
+                current = 4;
+                BeerMugLocation.transform.position = TapPosition[current].transform.position;
+            }
+            PourTime = 0f;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            PourBeer2.SetActive(true);
-            KeyPressed = true;
-            Timer();
-        }
-        else
-        {
-            PourBeer2.SetActive(false);
+            //move beer to tap location on bottom layer if its currently on top layer
+            if (current > 2)
+            {
+                current = 1;
+                BeerMugLocation.transform.position = TapPosition[current].transform.position;
+            }
+            PourTime = 0f;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            PourBeer3.SetActive(true);
-            KeyPressed = true;
-            Timer();
+            startTime = Time.deltaTime;
+            BeerMugIMG.GetComponent<Animator>().enabled = true;
         }
-        else
+
+        if (Input.GetKey(KeyCode.E))
         {
-            PourBeer3.SetActive(false);
+            PourTime = Time.deltaTime - startTime;
+            BeerMugIMG.GetComponent<Animator>().Play("Pour_Beer");
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            BeerMugIMG.GetComponent<Animator>().enabled = false;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             BeerLevel = PourTime;
-            
-            BeerMugLocation.transform.position = TrayLocation.transform.position;
-
+            BeerMugLocation.transform.position = TrayLocation[drinksFinished].transform.position;
             if (BeerLevel <= 4)
             {
                 //Poor Pour
                 Debug.Log("poorPour");
             }
-            else if (BeerLevel >= 4.1 || BeerLevel <=8)
+            else if (BeerLevel > 4 || BeerLevel <= 8)
             {
-                // avrage pour
+                // average pour
                 Debug.Log("AvragePour");
             }
-            else if (BeerLevel >= 8)
+            else if (BeerLevel > 8)
             {
                 // good pour 
                 Debug.Log("goodPour");
             }
-
             SaveDrink();
-
             PourTime = 0f;
         }
 
@@ -130,7 +151,7 @@ public class BeerMug : MonoBehaviour
         }
     }
 
-    void Timer()
+    void Timer(float PourTime)
     {
 
         if (KeyPressed == true)
@@ -157,16 +178,16 @@ public class BeerMug : MonoBehaviour
 
         print(Drinks.Count);
 
-        Instantiate(BeerPrefab, TrayLocation.transform.position, Quaternion.identity);
-        BeerMugLocation.transform.position = BeerPostion[current].transform.position;
-
+        Instantiate(BeerPrefab, TrayLocation[drinksFinished].transform.position, Quaternion.identity);
+        BeerMugIMG.SetActive(false);
+        //BeerMugLocation.transform.position = TapPosition[current].transform.position;
+        drinksFinished++;
         finishButton.SetActive(true);
 
     }
 
-    public void Finish(string SceneName)
+    public void Finish()
     {
-        SceneManager.LoadScene(SceneName);
+        SceneManager.LoadScene(2);
     }
 }
-    
