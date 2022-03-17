@@ -24,7 +24,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -275,13 +274,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Beer_Animation_3: -1140263284
-      Beer_Animation_4: 1058710998
-      Beer_Animation_5: 469392973
-      Beer_Animation_1: 1971311367
-      Beer_Animation_0: -776564129
-      Beer_Animation_2: -460576481
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

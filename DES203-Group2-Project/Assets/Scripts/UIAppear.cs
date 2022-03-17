@@ -5,13 +5,21 @@ using UnityEngine.UI;
 
 public class UIAppear : MonoBehaviour
 {
-    [SerializeField] private Canvas customImage;
+    [SerializeField] private Button[] customButton;
+    [SerializeField] private Image[] buttonImage;
+    int size;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            customImage.enabled = true;
+            size = customButton.Length;
+            for (int i = 0; i < size; i++)
+            {
+                customButton[i].enabled = true;
+                buttonImage[i].enabled = true;
+            }
+            
         }
     }
 
@@ -19,7 +27,13 @@ public class UIAppear : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            customImage.enabled = false;
+            size = customButton.Length;
+            for (int i = 0; i < size; i++)
+            {
+                customButton[i].enabled = false;
+                buttonImage[i].enabled = false;
+            }
+
         }
     }
 }
