@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
         SaveSystem.SavePlayer(this);
     }
 
-    public void LoadPLayer()
+    public void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
