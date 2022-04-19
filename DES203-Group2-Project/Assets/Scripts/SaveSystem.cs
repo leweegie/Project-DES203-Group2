@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveSystem
 {
-    public static void SavePlayer(Player player)
+    public static void SavePlayerData(Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/playerData.data";
@@ -18,7 +18,7 @@ public class SaveSystem
         stream.Close();
     }
 
-    public static PlayerData LoadPlayer()
+    public static PlayerData LoadPlayerData()
     {
         string path = Application.persistentDataPath + "/playerData.data";
         if (File.Exists(path))
@@ -37,5 +37,4 @@ public class SaveSystem
             return null;
         }
     }
-
 }

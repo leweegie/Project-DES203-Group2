@@ -7,6 +7,23 @@ public class Player : MonoBehaviour
     public int money = 0;
     public int buildingNumber = 0;
 
+    void Awake()
+    {
+        LoadPlayer();
+    }
+
+    public void newGame()
+    {
+        money = 0;
+        buildingNumber = 0;
+        Vector3 position;
+        position.x = 1.2347f;
+        position.y = 2.6764f;
+        position.z = 0.0f;
+        transform.position = position;
+        SavePlayer();
+    }
+
     public void increaseMoney (int amount)
     {
         money += amount;
@@ -24,12 +41,12 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this);
+        SaveSystem.SavePlayerData(this);
     }
 
     public void LoadPlayer()
     {
-        PlayerData data = SaveSystem.LoadPlayer();
+        PlayerData data = SaveSystem.LoadPlayerData();
 
         money = data.money;
         buildingNumber = data.building;
