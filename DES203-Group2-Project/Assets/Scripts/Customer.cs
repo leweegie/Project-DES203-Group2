@@ -7,23 +7,29 @@ public class Customer : MonoBehaviour
 {
     public int customerID;
     public int textID;
-    public Text[] customerDialogue;
+    public Text[] loreDialogue;
 
     void Awake()
     {
-        //LoadCustomer();
+//        LoadCustomer();
         showDialogue();
     }
 
     public void newGame()
     {
-        customerID = 0;
+        //customerID = 0;
         textID = 0;
+//        SaveCustomer();
+    }
+
+    public void setTextPointer(int p)
+    {
+        textID = p;
     }
 
     public void qNextText()
     {
-        customerDialogue[textID].enabled = false;
+        loreDialogue[textID].enabled = false;
 
         textID += 1;
 
@@ -31,6 +37,18 @@ public class Customer : MonoBehaviour
 
     public void showDialogue()
     {
-        customerDialogue[textID].enabled = true;
+        loreDialogue[textID].enabled = true;
     }
+
+    //public void SaveCustomer()
+    //{
+    //    SaveSystem.SaveCustomerData(this);
+    //}
+
+    //public void LoadCustomer()
+    //{
+    //    CustomerData data = SaveSystem.LoadCustomerData();
+
+    //    textID = data.textPointer[customerID];
+    //}
 }

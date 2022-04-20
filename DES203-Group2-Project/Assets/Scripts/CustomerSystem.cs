@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using Random = System.Random;
 using UnityEngine;
 
 public class CustomerSystem : MonoBehaviour
 {
-    public GameObject[] customers;
-    public int customerNumber = 0;
+    public GameObject[] customerSprites;
+    public int activeSprite;
 
     void Awake()
     {
@@ -14,16 +16,34 @@ public class CustomerSystem : MonoBehaviour
 
     public void spawnCustomer()
     {
-        customers[customerNumber].SetActive(true);
+        customerSprites[activeSprite].SetActive(true);
     }
 
     public void despawnCustomer()
     {
-        customers[customerNumber].SetActive(false);
+        customerSprites[activeSprite].SetActive(false);
     }
 
     public void qNextCustomer()
     {
-        customerNumber += 1;
+        Random r = new Random();
+        int rInt = r.Next(0, 6);
+
+        activeSprite = rInt;
     }
+
+    //public void SaveCustomers()
+    //{
+    //    SaveSystem.SaveCustomerData(customers);
+    //}
+
+    //public void LoadCustomers()
+    //{
+    //    CustomerData data = SaveSystem.LoadCustomerData();
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        int textPointer = data.textPointer[i];
+    //        customers[i].setTextPointer(textPointer);
+    //    }
+    //}
 }
