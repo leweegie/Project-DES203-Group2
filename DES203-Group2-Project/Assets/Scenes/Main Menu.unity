@@ -3760,6 +3760,7 @@ MonoBehaviour:
   orderRecieved: []
   isCustomerActive: 1
   orderOrThanks: 1
+  replyButtons: []
 --- !u!1 &1399477467
 GameObject:
   m_ObjectHideFlags: 0
