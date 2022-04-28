@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class BeginMiniGame : MonoBehaviour
 {
-    public void Wait()
+    public void WaitMiniGame()
     {
         StartCoroutine(_wait());
-        //SceneManager.LoadScene(3);
+
     }
+
     void LoadMiniGame()
     {
         SceneManager.LoadScene(3);

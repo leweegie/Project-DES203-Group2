@@ -3751,11 +3751,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1383272954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2e4ed428afeeff44a430ef61f61ff1e, type: 3}
+  m_Script: {fileID: 11500000, guid: ad9201cafcb335e48972e1d43f1060c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textID: 0
-  customerDialogue: []
+  customerSprite: []
+  activeCustomer: 0
+  orderDialogue: []
+  orderRecieved: []
+  isCustomerActive: 1
+  orderOrThanks: 1
 --- !u!1 &1399477467
 GameObject:
   m_ObjectHideFlags: 0
@@ -4170,8 +4174,8 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1383272956}
-        m_TargetAssemblyTypeName: Customer, Assembly-CSharp
-        m_MethodName: newGame
+        m_TargetAssemblyTypeName: CustomerManager, Assembly-CSharp
+        m_MethodName: NewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

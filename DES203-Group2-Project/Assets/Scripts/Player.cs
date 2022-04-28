@@ -24,6 +24,11 @@ public class Player : MonoBehaviour
         SavePlayer();
     }
 
+    public void drinkOrderComplete()
+    {
+        increaseMoney(10);
+    }
+
     public void increaseMoney (int amount)
     {
         money += amount;

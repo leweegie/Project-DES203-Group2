@@ -11,8 +11,9 @@ public class CustomerManager : MonoBehaviour
     public int activeCustomer;
     public Text[] orderDialogue;
     public Text[] orderRecieved;
-    public bool isCustomerActive = true;
-    public int orderOrThanks = 1;
+    public bool isCustomerActive;
+    public int orderOrThanks;
+    public GameObject[] replyButtons;
 
     // Update is called once per frame
     void Awake()
@@ -21,24 +22,35 @@ public class CustomerManager : MonoBehaviour
         {
             LoadCustomer();
             Debug.Log("Show Customer");
-            customerSprite[activeCustomer].SetActive(true);
-            ShowDialogue(orderOrThanks);
+            ShowCustomer();
         }
+    }
+
+    public void ShowCustomer()
+    {
+        customerSprite[activeCustomer].SetActive(true);
+        ShowDialogue(orderOrThanks);
     }
 
     public void ShowDialogue(int checker)
     {
         if (checker == 1)
         {
+            Debug.Log("1");
             Random r = new Random();
             int rInt = r.Next(0, 1);
+            orderRecieved[0].enabled = false;
             orderDialogue[rInt].enabled = true;
+            replyButtons[0].SetActive(true);
         }
         if (checker == 2)
         {
+            Debug.Log("2");
             Random r = new Random();
             int rInt = r.Next(0, 1);
-            orderDialogue[rInt].enabled = true;
+            orderDialogue[rInt].enabled = false;
+            orderRecieved[rInt].enabled = true;
+            replyButtons[1].SetActive(true);
         }
     }
 
@@ -49,6 +61,7 @@ public class CustomerManager : MonoBehaviour
 
     public void OrderRecieved()
     {
+        customerSprite[activeCustomer].SetActive(false);
         orderOrThanks = 1;
     }
 
@@ -56,8 +69,30 @@ public class CustomerManager : MonoBehaviour
     {
         Random r = new Random();
         int rInt = r.Next(0, 6);
+        int rPos = r.Next(0, 6);
+
+        Debug.Log(rPos);
+
+        float xModifier = rPos;
+        xModifier = -171.0f + (xModifier * 175.0f);
+
 
         activeCustomer = rInt;
+
+        Vector3 spritePosition;
+        spritePosition.x = xModifier;
+        spritePosition.y = 18.0f;
+        spritePosition.z = 0.0f;
+
+        customerSprite[rInt].transform.localPosition = spritePosition;
+    }
+
+    public void NewGame()
+    {
+        activeCustomer = 0;
+        isCustomerActive = true;
+        orderOrThanks = 1;
+        SaveCustomer();
     }
 
     public void SaveCustomer()

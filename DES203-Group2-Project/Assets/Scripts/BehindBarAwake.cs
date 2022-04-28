@@ -13,4 +13,9 @@ public class BehindBarAwake : MonoBehaviour
         player.LoadPlayer();
         coinCount.text = player.money.ToString();
     }
+
+    void Update()
+    {
+        coinCount.text = player.money.ToString();
+    }
 }
