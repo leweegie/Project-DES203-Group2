@@ -8,17 +8,17 @@ public class TImeManager : MonoBehaviour
     public static Action OnMinuteChanged;
     public static Action OnHourChanged;
 
-    public static int Minute { get; private set;  }
+    public static int Minute { get; private set; } = 0;
 
-    public static int Hour { get; private set; }
+    public static int Hour { get; private set; } = 10;
 
     private float minuteToRealTime = 0.5f;
     private float timer;
+    
     // Start is called before the first frame update
     void Start()
     {
-        Minute = 0;
-        Hour = 10;
+
         timer = minuteToRealTime;
     }
 

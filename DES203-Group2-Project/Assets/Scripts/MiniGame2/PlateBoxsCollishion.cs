@@ -193,9 +193,9 @@ public class PlateBoxsCollishion : MonoBehaviour
         finish.gameObject.SetActive(true);
     }
 
-    void FinishButton()
+    public void FinishButton()
     {
         // load the main scene
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene(2);
     }
 }

@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiniGame2.unity
     guid: edfdc35777efbcd46b2b300bac87b9b3
+  - enabled: 1
+    path: Assets/Scenes/EndOfDay.unity
+    guid: a35453a394af3fe429c321c9a3de77cb
   m_configObjects: {}

@@ -20,6 +20,8 @@ public class BeerMug : MonoBehaviour
     bool KeyPressed = false;
     ArrayList Drinks = new ArrayList();
     public GameObject finishButton;
+    public AudioSource Serve;
+    public AudioSource Pour;
 
     // Start is called before the first frame update
     public void Start()
@@ -39,6 +41,7 @@ public class BeerMug : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         //begin mini game/get new tankard
         {
+            Serve.Play();
             current = 0;
             BeerMugLocation.transform.position = TapPosition[current].transform.position;
             BeerMugIMG.SetActive(true);
@@ -52,6 +55,7 @@ public class BeerMug : MonoBehaviour
             //move beer to tap location -1 from current position
             if (current > 0)
             {
+                Serve.Play();
                 current--;
                 BeerMugLocation.transform.position = TapPosition[current].transform.position;
                 Debug.Log("Leftmovement");
@@ -64,6 +68,7 @@ public class BeerMug : MonoBehaviour
             //move beer to tap location +1 from current position
             if (current < TapPosition.Length)
             {
+                Serve.Play();
                 current++;
                 BeerMugLocation.transform.position = TapPosition[current].transform.position;
                 Debug.Log("Rightmovement");
@@ -76,11 +81,13 @@ public class BeerMug : MonoBehaviour
             //move beer to tap location on top layer if its currently on bottom layer
             if (current == 0 || current == 1)
             {
+                Serve.Play();
                 current = 3;
                 BeerMugLocation.transform.position = TapPosition[current].transform.position;
             }
             else if (current == 2)
             {
+                Serve.Play();
                 current = 4;
                 BeerMugLocation.transform.position = TapPosition[current].transform.position;
             }
@@ -92,6 +99,7 @@ public class BeerMug : MonoBehaviour
             //move beer to tap location on bottom layer if its currently on top layer
             if (current > 2)
             {
+                Serve.Play();
                 current = 1;
                 BeerMugLocation.transform.position = TapPosition[current].transform.position;
             }
@@ -100,23 +108,27 @@ public class BeerMug : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            Pour.Play();
             startTime = Time.deltaTime;
             BeerMugIMG.GetComponent<Animator>().enabled = true;
         }
 
         if (Input.GetKey(KeyCode.E))
         {
+            
             PourTime = Time.deltaTime - startTime;
             BeerMugIMG.GetComponent<Animator>().Play("Pour_Beer");
         }
 
         if (Input.GetKeyUp(KeyCode.E))
         {
+            Pour.Stop();
             BeerMugIMG.GetComponent<Animator>().enabled = false;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Serve.Play();
             BeerLevel = PourTime;
             BeerMugLocation.transform.position = TrayLocation[drinksFinished].transform.position;
             if (BeerLevel <= 4)
@@ -186,8 +198,14 @@ public class BeerMug : MonoBehaviour
 
     }
 
+    IEnumerator _wait()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(2);
+    }
+
     public void Finish()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(_wait());
     }
 }

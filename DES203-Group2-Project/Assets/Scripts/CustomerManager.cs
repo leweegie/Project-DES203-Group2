@@ -12,8 +12,12 @@ public class CustomerManager : MonoBehaviour
     public Text[] orderDialogue;
     public Text[] orderRecieved;
     public bool isCustomerActive;
+    public int customerCount;
     public int orderOrThanks;
     public GameObject[] replyButtons;
+    public AudioSource NewCustomerAudio;
+    public GameObject DialogueObject;
+
 
     // Update is called once per frame
     void Awake()
@@ -26,10 +30,36 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (isCustomerActive == true)
+        {
+            customerCount = 1;
+        }
+        else
+        {
+            customerCount = 0;
+        }
+    }
+
+
+    public void NextCustomer()
+    {
+        StartCoroutine(_ShowCustomer());
+    }
+
     public void ShowCustomer()
     {
         customerSprite[activeCustomer].SetActive(true);
+        DialogueObject.SetActive(true);
         ShowDialogue(orderOrThanks);
+    }
+
+    IEnumerator _ShowCustomer()
+    {
+        yield return new WaitForSeconds(3);
+        ShowCustomer();
+        NewCustomerAudio.Play();
     }
 
     public void ShowDialogue(int checker)
@@ -38,7 +68,7 @@ public class CustomerManager : MonoBehaviour
         {
             Debug.Log("1");
             Random r = new Random();
-            int rInt = r.Next(0, 1);
+            int rInt = r.Next(0, 3);
             orderRecieved[0].enabled = false;
             orderDialogue[rInt].enabled = true;
             replyButtons[0].SetActive(true);
@@ -47,7 +77,7 @@ public class CustomerManager : MonoBehaviour
         {
             Debug.Log("2");
             Random r = new Random();
-            int rInt = r.Next(0, 1);
+            int rInt = r.Next(0, 3);
             orderDialogue[rInt].enabled = false;
             orderRecieved[rInt].enabled = true;
             replyButtons[1].SetActive(true);
@@ -63,6 +93,18 @@ public class CustomerManager : MonoBehaviour
     {
         customerSprite[activeCustomer].SetActive(false);
         orderOrThanks = 1;
+        for (int i = 0; i < 3; i++)
+        {
+            orderDialogue[i].enabled = false;
+            orderRecieved[i].enabled = false;
+        }
+    }
+
+    public void DeclineOrder()
+    {
+        OrderRecieved();
+        qNextCustomer();
+        NextCustomer();
     }
 
     public void qNextCustomer()
@@ -89,7 +131,9 @@ public class CustomerManager : MonoBehaviour
 
     public void NewGame()
     {
-        activeCustomer = 0;
+        Random r = new Random();
+        int rInt = r.Next(0, 6);
+        activeCustomer = rInt;
         isCustomerActive = true;
         orderOrThanks = 1;
         SaveCustomer();

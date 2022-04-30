@@ -8,6 +8,7 @@ public class UIAppear : MonoBehaviour
     [SerializeField] private Button[] customButton;
     [SerializeField] private Image[] buttonImage;
     int size;
+    public AudioSource audioQ;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,7 +20,7 @@ public class UIAppear : MonoBehaviour
                 customButton[i].enabled = true;
                 buttonImage[i].enabled = true;
             }
-            
+            audioQ.Play();
         }
     }
 
