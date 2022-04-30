@@ -6,6 +6,7 @@ using UnityEngine;
 public class TimeUI : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
+    public GameObject clock;
 
     private void OnEnable()
     {

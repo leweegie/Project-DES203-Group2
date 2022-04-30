@@ -5,11 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    //TODO add PlayGame() to transition to first scene
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(1);
+    }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(_wait());
+    }
+
+    IEnumerator _wait()
+    {
+        yield return new WaitForSeconds(1);
+        LoadScene();
     }
 
     public void QuitGame ()
