@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public int money;
     public int buildingNumber;
     public int stock;
+    public CustomerManager customer;
 
     void Awake()
     {
@@ -37,20 +38,23 @@ public class Player : MonoBehaviour
 
     public void loadSceneReceipt()
     {
+        customer.isCustomerActive = false;
         SceneManager.LoadScene(5);
     }
 
     public void loadSceneNewDay()
     {
+        customer.isCustomerActive = true;
         SceneManager.LoadScene(1);
     }
 
     public void RefillStock()
     {
-        if (money >= 5 && stock <= 90)
+        if (money >= 3 && stock <= 90)
         {
             money -= 3;
             stock += 10;
+            SavePlayer();
         }
     }
 

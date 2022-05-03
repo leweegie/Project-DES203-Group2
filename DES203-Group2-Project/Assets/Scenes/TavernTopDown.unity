@@ -9835,6 +9835,7 @@ MonoBehaviour:
   money: 0
   buildingNumber: 0
   stock: 0
+  customer: {fileID: 108810952}
 --- !u!82 &1740587741
 AudioSource:
   m_ObjectHideFlags: 0
