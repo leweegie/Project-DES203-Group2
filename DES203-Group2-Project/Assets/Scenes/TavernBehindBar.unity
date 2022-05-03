@@ -6910,6 +6910,7 @@ MonoBehaviour:
   money: 0
   buildingNumber: 0
   stock: 100
+  customer: {fileID: 1523240766}
 --- !u!4 &1757404221
 Transform:
   m_ObjectHideFlags: 0
